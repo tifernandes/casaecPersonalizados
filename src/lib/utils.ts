@@ -9,16 +9,16 @@ export function cn(...inputs: ClassValue[]) {
 export const formatPrice = (price: number) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'BRL',
   })
 
   return formatter.format(price)
 }
 
 export function constructMetadata({
-  title = 'CaseCobra - custom high-quality phone cases',
-  description = 'Create custom high-quality phone cases in seconds',
-  image = '/thumbnail.png',
+  title = 'CasaEc - personalize os produtos',
+  description = 'Crie e personalize os produtos em segundos',
+  // image = '/thumbnail.png',
   icons = '/favicon.ico',
 }: {
   title?: string
@@ -32,16 +32,16 @@ export function constructMetadata({
     openGraph: {
       title,
       description,
-      images: [{ url: image }],
+      // images: [{ url: image }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [image],
+      // images: [image],
       creator: '@joshtriedcoding',
     },
     icons,
-    metadataBase: new URL("https://casecobra.vercel.app/")
+    metadataBase: new URL("https://casaec.com.br/")
   }
 }

@@ -3,6 +3,7 @@ import MaxWidthWrapper from './MaxWidthWrapper'
 import { buttonVariants } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import NextImage from 'next/image'
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession()
@@ -15,7 +16,13 @@ const Navbar = async () => {
       <MaxWidthWrapper>
         <div className='flex h-14 items-center justify-between border-b border-zinc-200'>
           <Link href='/' className='flex z-40 font-semibold'>
-            case<span className='text-green-600'>cobra</span>
+            <NextImage
+                width={120}
+                height={120}
+                alt='phone image'
+                src='/logoCasaEc.png'
+                className='pointer-events-none z-1 select-none'
+            />
           </Link>
 
           <div className='h-full flex items-center space-x-4'>
@@ -51,7 +58,7 @@ const Navbar = async () => {
               </>
             ) : (
               <>
-                <Link
+                {/* <Link
                   href='/api/auth/register'
                   className={buttonVariants({
                     size: 'sm',
@@ -67,7 +74,7 @@ const Navbar = async () => {
                     variant: 'ghost',
                   })}>
                   Login
-                </Link>
+                </Link> */}
 
                 <div className='h-8 w-px bg-zinc-200 hidden sm:block' />
 
@@ -77,7 +84,7 @@ const Navbar = async () => {
                     size: 'sm',
                     className: 'hidden sm:flex items-center gap-1',
                   })}>
-                  Create case
+                  Customizar produto
                   <ArrowRight className='ml-1.5 h-5 w-5' />
                 </Link>
               </>

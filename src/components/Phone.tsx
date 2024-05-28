@@ -17,16 +17,16 @@ const Phone = ({ imgSrc, className, dark = false, ...props }: PhoneProps) => {
       <img
         src={
           dark
-            ? '/phone-template-dark-edges.png'
-            : '/phone-template-white-edges.png'
+            ? '/shapeTacaGin.png'
+            : '/shapeTacaGin.png'
         }
-        className='pointer-events-none z-50 select-none'
+        className='pointer-events-none select-none'
         alt='phone image'
       />
 
-      <div className='absolute -z-10 inset-0'>
+      <div className='absolute z-50 inset-0'>
         <img
-          className='object-cover min-w-full min-h-full'
+          className='absolute z-40 inset-0 md:w-28 md:h-20 w-24 h-16 mx-auto my-[25%] md:my-[30%]'
           src={imgSrc}
           alt='overlaying phone image'
         />

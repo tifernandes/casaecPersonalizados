@@ -5,18 +5,18 @@ import { usePathname } from 'next/navigation'
 
 const STEPS = [
   {
-    name: 'Step 1: Add image',
-    description: 'Choose an image for your case',
+    name: 'Passo 1: Adicione imagem',
+    description: 'Selecione uma imagem para o produto',
     url: '/upload',
   },
   {
-    name: 'Step 2: Customize design',
-    description: 'Make the case yours',
+    name: 'Passo 2: Customize',
+    description: 'Edite sua imagem sobre o produto',
     url: '/design',
   },
   {
-    name: 'Step 3: Summary',
-    description: 'Review your final design',
+    name: 'Passo 3: Revise',
+    description: 'Revise seu produto final e finalize',
     url: '/preview',
   },
 ]
@@ -54,7 +54,7 @@ const Steps = () => {
                 )}>
                 <span className='flex-shrink-0'>
                   <img
-                    src={imgPath}
+                    // src={imgPath}
                     className={cn(
                       'flex h-20 w-20 object-contain items-center justify-center',
                       {

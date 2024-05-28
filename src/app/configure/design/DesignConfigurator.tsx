@@ -151,29 +151,27 @@ const DesignConfigurator = ({
     return new Blob([byteArray], { type: mimeType })
   }
 
+  console.log('options')
+  console.log(options)
+
   return (
     <div className='relative mt-20 grid grid-cols-1 lg:grid-cols-3 mb-20 pb-20'>
       <div
         ref={containerRef}
-        className='relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'>
-        <div className='relative w-60 bg-opacity-50 pointer-events-none aspect-[896/1831]'>
+        className='relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'>
+        <div className='relative w-80 bg-opacity-50 pointer-events-none'>
           <AspectRatio
             ref={phoneCaseRef}
-            ratio={896 / 1831}
-            className='pointer-events-none relative z-50 aspect-[896/1831] w-full'>
-            <NextImage
+            ratio={14/16}
+            className='pointer-events-none relative z-50 w-48 h-32 mx-auto my-[25%] flex items-center justify-center'>
+              {/* <p className='text-gray-400 z-[-10] hover:opacity-0'>Sua imagem aqui</p> */}
+          </AspectRatio>
+          <div className='absolute z-40 inset-0 w-48 h-32 mx-auto my-[25%] border-dashed border-2 border-gray-300 shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]' />
+          <NextImage
               fill
               alt='phone image'
-              src='/phone-template.png'
-              className='pointer-events-none z-50 select-none'
-            />
-          </AspectRatio>
-          <div className='absolute z-40 inset-0 left-[3px] top-px right-[3px] bottom-px rounded-[32px] shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]' />
-          <div
-            className={cn(
-              'absolute inset-0 left-[3px] top-px right-[3px] bottom-px rounded-[32px]',
-              `bg-${options.color.tw}`
-            )}
+              src={options.model.img}
+              className='pointer-events-none z-1 select-none'
           />
         </div>
 
@@ -224,7 +222,7 @@ const DesignConfigurator = ({
 
           <div className='px-8 pb-12 pt-8'>
             <h2 className='tracking-tight font-bold text-3xl'>
-              Customize your case
+              Customize seu produto
             </h2>
 
             <div className='w-full h-px bg-zinc-200 my-6' />
@@ -239,7 +237,7 @@ const DesignConfigurator = ({
                       color: val,
                     }))
                   }}>
-                  <Label>Color: {options.color.label}</Label>
+                  <Label>Cores: {options.color.label}</Label>
                   <div className='mt-3 flex items-center space-x-3'>
                     {COLORS.map((color) => (
                       <RadioGroup.Option
@@ -265,7 +263,7 @@ const DesignConfigurator = ({
                 </RadioGroup>
 
                 <div className='relative flex flex-col gap-3 w-full'>
-                  <Label>Model</Label>
+                  <Label>Produto</Label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
@@ -305,7 +303,7 @@ const DesignConfigurator = ({
                   </DropdownMenu>
                 </div>
 
-                {[MATERIALS, FINISHES].map(
+                {/* {[MATERIALS, FINISHES].map(
                   ({ name, options: selectableOptions }) => (
                     <RadioGroup
                       key={name}
@@ -364,7 +362,7 @@ const DesignConfigurator = ({
                       </div>
                     </RadioGroup>
                   )
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -374,16 +372,16 @@ const DesignConfigurator = ({
           <div className='h-px w-full bg-zinc-200' />
           <div className='w-full h-full flex justify-end items-center'>
             <div className='w-full flex gap-6 items-center'>
-              <p className='font-medium whitespace-nowrap'>
+              {/* <p className='font-medium whitespace-nowrap'>
                 {formatPrice(
                   (BASE_PRICE + options.finish.price + options.material.price) /
                     100
                 )}
-              </p>
+              </p> */}
               <Button
                 isLoading={isPending}
                 disabled={isPending}
-                loadingText="Saving"
+                loadingText="Salvando"
                 onClick={() =>
                   saveConfig({
                     configId,
@@ -395,7 +393,7 @@ const DesignConfigurator = ({
                 }
                 size='sm'
                 className='w-full'>
-                Continue
+                Continuar
                 <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>

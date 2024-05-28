@@ -18,29 +18,15 @@ export const MODELS = {
   name: 'models',
   options: [
     {
-      label: 'iPhone X',
+      label: 'Taça Gin',
       value: 'iphonex',
+      img: '/shapeTacaGin.png',
     },
     {
-      label: 'iPhone 11',
+      label: 'Champanheira',
       value: 'iphone11',
-    },
-    {
-      label: 'iPhone 12',
-      value: 'iphone12',
-    },
-    {
-      label: 'iPhone 13',
-      value: 'iphone13',
-    },
-    {
-      label: 'iPhone 14',
-      value: 'iphone14',
-    },
-    {
-      label: 'iPhone 15',
-      value: 'iphone15',
-    },
+      img: '/champanheiraMockup.png',
+    }
   ],
 } as const
 

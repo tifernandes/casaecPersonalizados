@@ -81,7 +81,7 @@ const Page = () => {
               <div className='flex flex-col justify-center mb-2 text-sm text-zinc-700'>
                 {isUploading ? (
                   <div className='flex flex-col items-center'>
-                    <p>Uploading...</p>
+                    <p>Carregando...</p>
                     <Progress
                       value={uploadProgress}
                       className='mt-2 w-40 h-2 bg-gray-300'
@@ -89,16 +89,16 @@ const Page = () => {
                   </div>
                 ) : isPending ? (
                   <div className='flex flex-col items-center'>
-                    <p>Redirecting, please wait...</p>
+                    <p>Redirecionando, aguarde...</p>
                   </div>
                 ) : isDragOver ? (
                   <p>
-                    <span className='font-semibold'>Drop file</span> to upload
+                    <span className='font-semibold'>Solte o arquivo</span> para carregar
                   </p>
                 ) : (
                   <p>
-                    <span className='font-semibold'>Click to upload</span> or
-                    drag and drop
+                    <span className='font-semibold'>Clique para carregar</span> ou
+                    arraste e solte
                   </p>
                 )}
               </div>
