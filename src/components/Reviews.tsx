@@ -7,12 +7,12 @@ import { cn } from '@/lib/utils'
 import Phone from './Phone'
 
 const PHONES = [
-  '/testimonials/1.jpg',
-  '/testimonials/2.jpg',
-  '/testimonials/3.jpg',
-  '/testimonials/4.jpg',
-  '/testimonials/5.jpg',
-  '/testimonials/6.jpg',
+  '/testimonials/mc.png',
+  '/testimonials/nike.png',
+  '/testimonials/bmw.png',
+  '/testimonials/gucci.png',
+  '/testimonials/kip.png',
+  '/testimonials/volks.png',
 ]
 
 function splitArray<T>(array: Array<T>, numParts: number) {
@@ -154,11 +154,11 @@ function ReviewGrid() {
 export function Reviews() {
   return (
     <MaxWidthWrapper className='relative max-w-5xl'>
-      <img
+      {/* <img
         aria-hidden='true'
         src='/what-people-are-buying.png'
         className='absolute select-none hidden xl:block -left-32 top-1/3'
-      />
+      /> */}
 
       <ReviewGrid />
     </MaxWidthWrapper>

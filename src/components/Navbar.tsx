@@ -26,6 +26,15 @@ const Navbar = async () => {
           </Link>
 
           <div className='h-full flex items-center space-x-4'>
+            <Link
+              className={buttonVariants({
+                size: 'sm',
+                className: 'flex z-40 font-semibold bg-slate-600',
+              })}
+              target='_blank'
+              href='https://loja.casaec.com.br/'>
+              Conheça todos os produtos
+            </Link>
             {user ? (
               <>
                 <Link
