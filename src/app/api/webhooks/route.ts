@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       await resend.emails.send({
         from: 'Tiago Teste <nao-responda@casaec.com.br>',
         to: [event.data.object.customer_details.email],
-        subject: 'Thanks for your order!',
+        subject: 'CasaEc - Recebemos seu pedido!',
         react: OrderReceivedEmail({
           orderId,
           orderDate: updatedOrder.createdAt.toLocaleDateString(),
