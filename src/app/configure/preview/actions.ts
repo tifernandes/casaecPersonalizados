@@ -50,7 +50,6 @@ export const createCheckoutSession = async ({
     order = await db.order.create({
       data: {
         amount: price / 100,
-        userId: '814a4892-0175-46f9-a443-fcb4af99c21b',
         configurationId: configuration.id,
       },
     })
@@ -68,11 +67,10 @@ export const createCheckoutSession = async ({
   const stripeSession = await stripe.checkout.sessions.create({
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
-    payment_method_types: ['card', 'paypal'],
+    payment_method_types: ['card'],
     mode: 'payment',
     shipping_address_collection: { allowed_countries: ['BR'] },
     metadata: {
-      userId: '814a4892-0175-46f9-a443-fcb4af99c21b',
       orderId: order.id,
     },
     line_items: [{ price: product.default_price as string, quantity: 1 }],

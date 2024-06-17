@@ -15,21 +15,21 @@ const Page = () => {
     if (configurationId) setConfigId(configurationId)
   }, [])
 
-  const { data } = useQuery({
-    queryKey: ['auth-callback'],
-    queryFn: async () => await getAuthStatus(),
-    retry: true,
-    retryDelay: 500,
-  })
+  // const { data } = useQuery({
+  //   queryKey: ['auth-callback'],
+  //   queryFn: async () => await getAuthStatus(),
+  //   retry: true,
+  //   retryDelay: 500,
+  // })
 
-  if (data?.success) {
+  // if (data?.success) {
     if (configId) {
       localStorage.removeItem('configurationId')
       router.push(`/configure/preview?id=${configId}`)
     } else {
       router.push('/')
     }
-  }
+  // }
 
   return (
     <div className='w-full mt-24 flex justify-center'>
