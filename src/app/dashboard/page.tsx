@@ -42,7 +42,6 @@ const Page = async () => {
       createdAt: 'desc',
     },
     include: {
-      user: true,
       shippingAddress: true,
     },
   })
@@ -139,7 +138,7 @@ const Page = async () => {
                       {order.shippingAddress?.name}
                     </div>
                     <div className='hidden text-sm text-muted-foreground md:inline'>
-                      {order.user.email}
+                      {/* {order.user.email} */}
                     </div>
                   </TableCell>
                   <TableCell className='hidden sm:table-cell'>
