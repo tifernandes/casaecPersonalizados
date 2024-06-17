@@ -31,7 +31,7 @@ const OrderReceivedEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>Your order summary and estimated delivery date</Preview>
+      <Preview>Resumo do seu pedido e data estimada de entrega</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={message}>
@@ -42,19 +42,19 @@ const OrderReceivedEmail = ({
               alt='delivery snake'
               style={{ margin: 'auto' }}
             />
-            <Heading style={global.heading}>Thank you for your order!</Heading>
+            <Heading style={global.heading}>Obrigado pelo seu pedido!</Heading>
             <Text style={global.text}>
-              We're preparing everything for delivery and will notify you once
-              your package has been shipped. Delivery usually takes 2 days.
+              Estamos preparando tudo para entrega e avisaremos assim que chegar
+              seu pacote. A entrega geralmente leva 2 dias.
             </Text>
             <Text style={{ ...global.text, marginTop: 24 }}>
-              If you have any questions regarding your order, please feel free
-              to contact us with your order number and we're here to help.
+              Se você tiver alguma dúvida sobre seu pedido, fique à vontade e
+              entre em contato conosco com o número do seu pedido, estamos aqui para ajudar.
             </Text>
           </Section>
           <Hr style={global.hr} />
           <Section style={global.defaultPadding}>
-            <Text style={adressTitle}>Shipping to: {shippingAddress.name}</Text>
+            <Text style={adressTitle}>Entrega para: {shippingAddress.name}</Text>
             <Text style={{ ...global.text, fontSize: 14 }}>
               {shippingAddress.street}, {shippingAddress.city},{' '}
               {shippingAddress.state} {shippingAddress.postalCode}
@@ -64,11 +64,11 @@ const OrderReceivedEmail = ({
           <Section style={global.defaultPadding}>
             <Row style={{ display: 'inline-flex gap-16', marginBottom: 40 }}>
               <Column style={{ width: 170 }}>
-                <Text style={global.paragraphWithBold}>Order Number</Text>
+                <Text style={global.paragraphWithBold}>Número do pedido</Text>
                 <Text style={track.number}>{orderId}</Text>
               </Column>
               <Column style={{marginLeft: 20}}>
-                <Text style={global.paragraphWithBold}>Order Date</Text>
+                <Text style={global.paragraphWithBold}>Data da compra</Text>
                 <Text style={track.number}>{orderDate}</Text>
               </Column>
             </Row>
@@ -84,13 +84,13 @@ const OrderReceivedEmail = ({
                   paddingTop: 30,
                   paddingBottom: 30,
                 }}>
-                Please contact us if you have any questions. (If you reply to
-                this email, we won't be able to see it.)
+                Entre em contato conosco se tiver alguma dúvida. (Se você responder a
+                este e-mail, não poderemos vê-lo.)
               </Text>
             </Row>
             <Row>
               <Text style={footer.text}>
-                © CaseCobra, Inc. All Rights Reserved.
+                © CasaEC, Todos os direito reservados.
               </Text>
             </Row>
           </Section>

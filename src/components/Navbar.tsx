@@ -29,11 +29,11 @@ const Navbar = async () => {
             <Link
               className={buttonVariants({
                 size: 'sm',
-                className: 'flex z-40 font-semibold bg-slate-600',
+                className: 'flex z-40 font-semibold bg-slate-600 hidden sm:flex',
               })}
               target='_blank'
               href='https://loja.casaec.com.br/'>
-              Conheça todos os produtos
+              Nossos produtos
             </Link>
             {user ? (
               <>
