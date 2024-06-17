@@ -56,14 +56,17 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   })
 
   const handleCheckout = () => {
-    if (user) {
-      // create payment session
-      createPaymentSession({ configId: id })
-    } else {
-      // need to log in
-      localStorage.setItem('configurationId', id)
-      setIsLoginModalOpen(true)
-    }
+    localStorage.setItem('configurationId', id)
+    createPaymentSession({ configId: id })
+    
+    // if (user) {
+    //   // create payment session
+    //   createPaymentSession({ configId: id })
+    // } else {
+    //   // need to log in
+    //   localStorage.setItem('configurationId', id)
+    //   setIsLoginModalOpen(true)
+    // }
   }
 
   return (
@@ -158,7 +161,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
             <div className='mt-8 flex justify-end pb-12'>
               <Button
-                // onClick={() => handleCheckout()}
+                onClick={() => handleCheckout()}
                 className='px-4 sm:px-6 lg:px-8'>
                 Fechar compra <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>

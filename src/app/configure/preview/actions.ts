@@ -22,9 +22,9 @@ export const createCheckoutSession = async ({
   const { getUser } = getKindeServerSession()
   const user = await getUser()
 
-  if (!user) {
-    throw new Error('You need to be logged in')
-  }
+  // if (!user) {
+  //   throw new Error('You need to be logged in')
+  // }
 
   const { finish, material } = configuration
 
@@ -37,12 +37,12 @@ export const createCheckoutSession = async ({
 
   const existingOrder = await db.order.findFirst({
     where: {
-      userId: user.id,
+      // userId: user.id,
       configurationId: configuration.id,
     },
   })
 
-  console.log(user.id, configuration.id)
+  // console.log(user.id, configuration.id)
 
   if (existingOrder) {
     order = existingOrder
@@ -50,17 +50,17 @@ export const createCheckoutSession = async ({
     order = await db.order.create({
       data: {
         amount: price / 100,
-        userId: user.id,
+        userId: '814a4892-0175-46f9-a443-fcb4af99c21b',
         configurationId: configuration.id,
       },
     })
   }
 
   const product = await stripe.products.create({
-    name: 'Custom iPhone Case',
+    name: 'Produto customizado - CasaEc',
     images: [configuration.imageUrl],
     default_price_data: {
-      currency: 'USD',
+      currency: 'BRL',
       unit_amount: price,
     },
   })
@@ -70,9 +70,9 @@ export const createCheckoutSession = async ({
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
     payment_method_types: ['card', 'paypal'],
     mode: 'payment',
-    shipping_address_collection: { allowed_countries: ['DE', 'US'] },
+    shipping_address_collection: { allowed_countries: ['BR'] },
     metadata: {
-      userId: user.id,
+      userId: '814a4892-0175-46f9-a443-fcb4af99c21b',
       orderId: order.id,
     },
     line_items: [{ price: product.default_price as string, quantity: 1 }],
