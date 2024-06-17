@@ -36,10 +36,10 @@ const OrderReceivedEmail = ({
         <Container style={container}>
           <Section style={message}>
             <Img
-              src={`${baseUrl}/snake-3.png`}
+              src={`${baseUrl}/logomarca.svg`}
               width='65'
               height='73'
-              alt='delivery snake'
+              alt='casaec logo'
               style={{ margin: 'auto' }}
             />
             <Heading style={global.heading}>Obrigado pelo seu pedido!</Heading>
