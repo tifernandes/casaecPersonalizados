@@ -8,8 +8,12 @@ import { Order } from '@prisma/client'
 
 export const createCheckoutSession = async ({
   configId,
+  logi,
+  userEnd
 }: {
-  configId: string
+  configId: string,
+  logi: string,
+  userEnd: any // Use `any` for flexibility; ideally, create a proper type/interface
 }) => {
   const configuration = await db.configuration.findUnique({
     where: { id: configId },
@@ -21,13 +25,8 @@ export const createCheckoutSession = async ({
 
   const { getUser } = getKindeServerSession()
   const user = await getUser()
-
-  // if (!user) {
-  //   throw new Error('You need to be logged in')
-  // }
-
+  
   const { finish, material } = configuration
-
   let price = BASE_PRICE
   if (finish === 'textured') price += PRODUCT_PRICES.finish.textured
   if (material === 'polycarbonate')
@@ -41,8 +40,6 @@ export const createCheckoutSession = async ({
       configurationId: configuration.id,
     },
   })
-
-  // console.log(user.id, configuration.id)
 
   if (existingOrder) {
     order = existingOrder
@@ -64,6 +61,23 @@ export const createCheckoutSession = async ({
     },
   })
 
+  const logiPreco = parseInt(logi.split('-')[1])
+  const frete = await stripe.products.create({
+    name: 'Servico de entrega',
+    default_price_data: {
+      currency: 'BRL',
+      unit_amount: logiPreco * 100,
+    },
+  })
+
+  const shippingAddress = {
+    line1: userEnd.logradouro,
+    city: userEnd.localidade,
+    state: userEnd.uf,
+    postal_code: userEnd.cep,
+    country: 'BR',
+  }
+
   const stripeSession = await stripe.checkout.sessions.create({
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
@@ -72,8 +86,12 @@ export const createCheckoutSession = async ({
     shipping_address_collection: { allowed_countries: ['BR'] },
     metadata: {
       orderId: order.id,
+      shippingAddress: JSON.stringify(shippingAddress), // Include the address in metadata
     },
-    line_items: [{ price: product.default_price as string, quantity: 1 }],
+    line_items: [
+      { price: product.default_price as string, quantity: 1 },
+      { price: frete.default_price as string, quantity: 1 }
+    ],
   })
 
   return { url: stripeSession.url }

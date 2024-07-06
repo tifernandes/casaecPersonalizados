@@ -167,12 +167,12 @@ const DesignConfigurator = ({
               {/* <p className='text-gray-400 z-[-10] hover:opacity-0'>Sua imagem aqui</p> */}
           </AspectRatio>
           <div className='absolute z-40 inset-0 w-48 h-32 mx-auto my-[25%] border-dashed border-2 border-gray-300 shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]' />
-          <NextImage
-              fill
-              alt='phone image'
-              src={options.model.img}
-              className='pointer-events-none z-1 select-none'
-          />
+          {/* <NextImage
+            fill
+            alt='phone image'
+            src={options.model.img}
+            className='pointer-events-none z-1 select-none'
+          /> */}
         </div>
 
         <Rnd
@@ -229,7 +229,7 @@ const DesignConfigurator = ({
 
             <div className='relative mt-4 h-full flex flex-col justify-between'>
               <div className='flex flex-col gap-6'>
-                <RadioGroup
+                {/* <RadioGroup
                   value={options.color}
                   onChange={(val) => {
                     setOptions((prev) => ({
@@ -260,7 +260,7 @@ const DesignConfigurator = ({
                       </RadioGroup.Option>
                     ))}
                   </div>
-                </RadioGroup>
+                </RadioGroup> */}
 
                 <div className='relative flex flex-col gap-3 w-full'>
                   <Label>Produto</Label>

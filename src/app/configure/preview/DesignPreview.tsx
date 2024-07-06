@@ -6,22 +6,20 @@ import { BASE_PRICE, PRODUCT_PRICES } from '@/config/products'
 import { cn, formatPrice } from '@/lib/utils'
 import { COLORS, FINISHES, MODELS } from '@/validators/option-validator'
 import { Configuration } from '@prisma/client'
-import { useMutation } from '@tanstack/react-query'
-import { ArrowRight, Check } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Confetti from 'react-dom-confetti'
-import { createCheckoutSession } from './actions'
 import { useRouter } from 'next/navigation'
-import { useToast } from '@/components/ui/use-toast'
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import LoginModal from '@/components/LoginModal'
+import ModalFrete from "@/components/ModalFrete"
+import { ArrowRight, Check } from 'lucide-react'
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const router = useRouter()
-  const { toast } = useToast()
   const { id } = configuration
   const { user } = useKindeBrowserClient()
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
+  const [isFrenetModal, setIsFrenetModal] = useState<boolean>(false)
 
   const [showConfetti, setShowConfetti] = useState<boolean>(false)
   useEffect(() => setShowConfetti(true))
@@ -39,34 +37,12 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     totalPrice += PRODUCT_PRICES.material.polycarbonate
   if (finish === 'textured') totalPrice += PRODUCT_PRICES.finish.textured
 
-  const { mutate: createPaymentSession } = useMutation({
-    mutationKey: ['get-checkout-session'],
-    mutationFn: createCheckoutSession,
-    onSuccess: ({ url }) => {
-      if (url) router.push(url)
-      else throw new Error('Unable to retrieve payment URL.')
-    },
-    onError: () => {
-      toast({
-        title: 'Something went wrong',
-        description: 'There was an error on our end. Please try again.',
-        variant: 'destructive',
-      })
-    },
-  })
+  const handleEntrega = () => {
+    setIsFrenetModal(true);
+  }
 
-  const handleCheckout = () => {
-    localStorage.setItem('configurationId', id)
-    createPaymentSession({ configId: id })
-    
-    // if (user) {
-    //   // create payment session
-    //   createPaymentSession({ configId: id })
-    // } else {
-    //   // need to log in
-    //   localStorage.setItem('configurationId', id)
-    //   setIsLoginModalOpen(true)
-    // }
+  const backToCustomize = () => {
+    router.push(`/configure/design?id=${id}`)
   }
 
   return (
@@ -81,23 +57,29 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
       </div>
 
       <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
+      <ModalFrete setIsFrenetModal={setIsFrenetModal} isFrenetModal={isFrenetModal} idConfig={id} />
 
-      <div className='mt-20 flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12'>
-        <div className='md:col-span-4 lg:col-span-3 md:row-span-2 md:row-end-2'>
+      <div className='mt-20 flex flex-col items-center text-sm'>
+        <div className='md:col-span-4 lg:col-span-3 md:row-span-2 md:row-end-2 flex flex-col items-center justify-center gap-3'>
+          <div className='mt-6 sm:col-span-9 md:row-end-1'>
+            <h3 className='text-3xl font-bold tracking-tight text-gray-900'>
+              Conheça sua {modelLabel} customizada!
+            </h3>
+            <div className='mt-3 flex items-center gap-1.5 text-base text-center'>
+              <Check className='h-4 w-4 text-green-500' />
+              No estoque e pronto para envio
+            </div>
+          </div>
           <Phone
-            className="max-w-[150px] md:max-w-full"
+            className="max-w-[400px] w-full"
             imgSrc={configuration.croppedImageUrl!}
           />
-        </div>
-
-        <div className='mt-6 sm:col-span-9 md:row-end-1'>
-          <h3 className='text-3xl font-bold tracking-tight text-gray-900'>
-            Conheça sua {modelLabel} customizada!
-          </h3>
-          <div className='mt-3 flex items-center gap-1.5 text-base'>
-            <Check className='h-4 w-4 text-green-500' />
-            No estoque e pronto para envio
-          </div>
+          <Button
+            onClick={() => backToCustomize()}
+            size={'sm'}
+            className='bg-slate-400 hover:bg-slate-500'>
+            Refazer customizaçao
+          </Button>
         </div>
 
         <div className='sm:col-span-12 md:col-span-9 text-base'>
@@ -159,11 +141,26 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
               </div>
             </div> */}
 
+            <div className='space-y-6 pt-10 text-sm'>
+              <div className='flex justify-between'>
+                <p className='font-medium text-zinc-900'>Subtotal</p>
+                <p className='text-zinc-700'>{formatPrice(10)}</p>
+              </div>
+              <div className='flex justify-between'>
+                <p className='font-medium text-zinc-900'>Entrega</p>
+                <p className='text-zinc-700'>A Calcular</p>
+              </div>
+              <div className='flex justify-between'>
+                <p className='font-medium text-zinc-900'>Total</p>
+                <p className='text-zinc-700'>{formatPrice(10)}</p>
+              </div>
+            </div>
+
             <div className='mt-8 flex justify-end pb-12'>
               <Button
-                onClick={() => handleCheckout()}
+                onClick={() => handleEntrega()}
                 className='px-4 sm:px-6 lg:px-8'>
-                Fechar compra <ArrowRight className='h-4 w-4 ml-1.5 inline' />
+                Fechar pedido <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>
           </div>
