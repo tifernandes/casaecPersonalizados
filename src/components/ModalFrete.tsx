@@ -32,6 +32,7 @@ import { useMutation } from '@tanstack/react-query'
 import { createCheckoutSession } from '../app/configure/preview/actions'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
+import { Dispatch, SetStateAction } from 'react';
 
 const FormSchema = z.object({
   cep: z.string().length(8, {
