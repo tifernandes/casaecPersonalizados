@@ -171,11 +171,7 @@ export default function ModalFrete({
         else throw new Error('Unable to retrieve payment URL.')
       },
       onError: () => {
-        toast({
-          title: 'Something went wrong',
-          description: 'There was an error on our end. Please try again.',
-          variant: 'destructive',
-        })
+        console.log('Error na criacao de payment')
       },
     })
 
