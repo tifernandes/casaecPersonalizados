@@ -72,6 +72,13 @@ interface UserEnd {
   complemento: string;
 }
 
+interface logistica {
+  ServiceCode: string;
+  ServiceDescription: string;
+  ShippingPrice: string;
+  DeliveryTime: string;
+}
+
 export default function ModalFrete({
     isFrenetModal,
     setIsFrenetModal,
@@ -90,7 +97,7 @@ export default function ModalFrete({
       complemento: "",
     })
     const [cepValue, setCepValue] = useState<string>('')
-    const [logistica, setLogistica] = useState<Array<Object>>([])
+    const [logistica, setLogistica] = useState<Array<logistica>>([])
     const [errorCep, setErrorCep] = useState<string>('')
     const [loadingSeguirPag, setLoadingSeguirPag] = useState<boolean>(false)
 
