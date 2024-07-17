@@ -31,11 +31,11 @@ import { ArrowRight, Check } from 'lucide-react'
 import { useMutation } from '@tanstack/react-query'
 import { createCheckoutSession } from '../app/configure/preview/actions'
 import { useRouter } from 'next/navigation'
-import { useToast } from '@/components/ui/use-toast'
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, ChangeEvent } from 'react';
+import { ReloadIcon } from "@radix-ui/react-icons"
 
 const FormSchema = z.object({
-  cep: z.string().length(8, {
+  cep: z.string().min(7, {
     message: "Cep deve ter 8 caracteres.",
   }),
   cidade: z.string().min(2, {
@@ -82,7 +82,6 @@ export default function ModalFrete({
     idConfig: string
   }) {
     const router = useRouter()
-    const { toast } = useToast()
     const [userEnd, setUserEnd] = useState<UserEnd>({
       localidade: "",
       bairro: "",
@@ -91,8 +90,9 @@ export default function ModalFrete({
       complemento: "",
     })
     const [cepValue, setCepValue] = useState<string>('')
-    const [logistica, setLogistica] = useState<array>([])
+    const [logistica, setLogistica] = useState<Array<Object>>([])
     const [errorCep, setErrorCep] = useState<string>('')
+    const [loadingSeguirPag, setLoadingSeguirPag] = useState<boolean>(false)
 
     const form = useForm<z.infer<typeof FormSchema>>({
       resolver: zodResolver(FormSchema),
@@ -100,17 +100,9 @@ export default function ModalFrete({
    
     function onSubmit(data: z.infer<typeof FormSchema>) {
 
+      setLoadingSeguirPag(true);
       localStorage.setItem('configurationId', idConfig)
       createPaymentSession({ configId: idConfig, logi: data.logi, userEnd })
-
-      // toast({
-      //   title: "You submitted the following values:",
-      //   description: (
-      //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-      //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-      //     </pre>
-      //   ),
-      // })
     }
 
     const handleQuotes = async () => {
@@ -332,10 +324,17 @@ export default function ModalFrete({
                   )}
                 />
               </div>
+              {!loadingSeguirPag ? (
               <Button
-                className='px-4 sm:px-6 lg:px-8'>
+              className='px-4 sm:px-6 lg:px-8'>
                 Seguir ao pagamento <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
+              ) : (
+                <Button disabled className='px-4 sm:px-6 lg:px-8'>
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  Redirecionando
+                </Button>
+              )}
             </div>
           )}
           </form>

@@ -13,6 +13,7 @@ import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import LoginModal from '@/components/LoginModal'
 import ModalFrete from "@/components/ModalFrete"
 import { ArrowRight, Check } from 'lucide-react'
+import { ReloadIcon } from "@radix-ui/react-icons"
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const router = useRouter()
@@ -20,8 +21,8 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const { user } = useKindeBrowserClient()
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
   const [isFrenetModal, setIsFrenetModal] = useState<boolean>(false)
-
   const [showConfetti, setShowConfetti] = useState<boolean>(false)
+  const [loadingRefazer, setLoadingRefazer] = useState<boolean>(false)
   useEffect(() => setShowConfetti(true))
 
   const { color, model, finish, material } = configuration
@@ -42,6 +43,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   }
 
   const backToCustomize = () => {
+    setLoadingRefazer(true);
     router.push(`/configure/design?id=${id}`)
   }
 
@@ -74,12 +76,19 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
             className="max-w-[400px] w-full"
             imgSrc={configuration.croppedImageUrl!}
           />
-          <Button
-            onClick={() => backToCustomize()}
-            size={'sm'}
-            className='bg-slate-400 hover:bg-slate-500'>
-            Refazer customizaçao
-          </Button>
+          {!loadingRefazer ? (
+            <Button
+              onClick={() => backToCustomize()}
+              size={'sm'}
+              className='bg-slate-400 hover:bg-slate-500'>
+                Refazer customizaçao
+            </Button>
+          ) : (
+            <Button disabled className='bg-slate-400 hover:bg-slate-500'>
+              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+              Redirecionando
+            </Button>
+          )}
         </div>
 
         <div className='sm:col-span-12 md:col-span-9 text-base'>
@@ -158,8 +167,8 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
             <div className='mt-8 flex justify-end pb-12'>
               <Button
-                onClick={() => handleEntrega()}
-                className='px-4 sm:px-6 lg:px-8'>
+              onClick={() => handleEntrega()}
+              className='px-4 sm:px-6 lg:px-8'>
                 Fechar pedido <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>
